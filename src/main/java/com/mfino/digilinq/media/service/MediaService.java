@@ -98,6 +98,22 @@ public class MediaService {
                 .headers(httpHeaders).body(resource);
 	}
 	
+	public ResponseEntity<Resource> downloadByUniqId(String uniqId) throws IOException {
+		MediaDto fileDto = mediaDao.getByUniqId(uniqId);
+		String filePath = baseFilePath + (FOLDER_NAME_MAP.containsKey(fileDto.getModule()) ? FOLDER_NAME_MAP.get(fileDto.getModule()) : "");
+		Path fileStorage = Paths.get(filePath).toAbsolutePath().normalize().resolve(fileDto.getFileName());
+        if(!Files.exists(fileStorage)) {
+            throw new FileNotFoundException(uniqId + " was not found on the server");
+        }
+        Resource resource = new UrlResource(fileStorage.toUri());
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("File-Name", fileDto.getFileName());
+        httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment;File-Name=" + resource.getFilename());
+        httpHeaders.add(HttpHeaders.CONTENT_TYPE, fileDto.getContentType());
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(Files.probeContentType(fileStorage)))
+                .headers(httpHeaders).body(resource);
+	}
+	
 	private String getNow() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(new Date(System.currentTimeMillis()));

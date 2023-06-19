@@ -20,6 +20,7 @@ public class MediaDao {
 
 	private static final String INSERT_FILE = "INSERT INTO `digilinq_files` (`fileUnqId`, `module`, `fileName`, `fileSize`, `filePath`, `contentType`, `createdBy`, `createdTime`) VALUES (?,?,?,?,?,?,?,?)";
 	private static final String GET_FILE = "SELECT * FROM `digilinq_files` WHERE `fileId` = ?";
+	private static final String GET_FILE_BY_UNIQID = "SELECT * FROM `digilinq_files` WHERE `fileUnqId` = ?";
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -46,6 +47,10 @@ public class MediaDao {
 
 	public MediaDto getByFileId(Long fileId) {
 		return jdbcTemplate.queryForObject(GET_FILE, new BeanPropertyRowMapper<MediaDto>(MediaDto.class), fileId);
+	}
+	
+	public MediaDto getByUniqId(String uniqId) {
+		return jdbcTemplate.queryForObject(GET_FILE_BY_UNIQID, new BeanPropertyRowMapper<MediaDto>(MediaDto.class), uniqId);
 	}
 	
 }

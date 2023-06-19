@@ -32,4 +32,9 @@ public class MediaController {
 	public ResponseEntity<Resource> download(@PathVariable Long fileId) throws IOException {
 		return mediaService.download(fileId);
 	}
+	
+	@GetMapping("/uniqid/{uniqId}")
+	public ResponseEntity<Resource> downloadByUniqId(@PathVariable String uniqId) throws IOException {
+		return mediaService.downloadByUniqId(uniqId);
+	}
 }
