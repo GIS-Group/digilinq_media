@@ -1,0 +1,21 @@
+server:
+  port: 6666
+
+spring:
+  application:
+    name: digilinq-media
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/digilinq_media?autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+    username: root
+    password: pass
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+
+digilinq:
+  system:
+      file:
+        base:
+          path: 'C:\digilinq\storage\media'
