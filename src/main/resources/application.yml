@@ -6,7 +6,7 @@ spring:
     name: digilinq-media
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/digilinq-media?autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/digilinq_media?autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8
     username: root
     password: pass
   servlet:
